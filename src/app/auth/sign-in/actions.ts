@@ -31,7 +31,6 @@ export async function signInWithEmailAndPassword(data: FormData) {
     })
 
     const allCookies = await cookies()
-
     allCookies.set('saas-token', token, {
       path: '/',
       maxAge: 60 * 60 * 24 * 7, // 7 days
