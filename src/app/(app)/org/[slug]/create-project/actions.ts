@@ -3,7 +3,8 @@
 import { HTTPError } from 'ky'
 import { z } from 'zod'
 
-// import { createProject } from '@/http/create-project'
+import { getCurrentOrg } from '@/auth/auth'
+import { createProject } from '@/http/create-project'
 
 const projectSchema = z.object({
   name: z
@@ -24,16 +25,26 @@ export async function createProjectAction(data: FormData) {
   const { name, description } = result.data
 
   try {
-    // await createProject({
-    //   name,
-    //   domain,
-    //   shouldAttachUsersByDomain,
-    // })
+    const org = await getCurrentOrg()
+    if (!org) {
+      return {
+        success: false,
+        message:
+          'Organization is not set. Please set an organization and try again.',
+        errors: null,
+      }
+    }
+
+    await createProject({
+      org,
+      name,
+      description,
+    })
   } catch (err) {
     if (err instanceof HTTPError) {
-      const { message } = await err.response.json()
+      const { title } = await err.response.json()
 
-      return { success: false, message, errors: null }
+      return { success: false, message: title, errors: null }
     }
 
     console.error(err)
