@@ -14,7 +14,7 @@ export const api = ky.create({
           const cookieStore = await cookies()
           token = cookieStore.get('saas-token')?.value
         } else {
-          token = getCookie('token')
+          token = getCookie('saas-token')
         }
 
         if (token != null && !(token === '')) {
