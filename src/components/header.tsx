@@ -4,6 +4,7 @@ import Image from 'next/image'
 import rocketseatIcon from '@/assets/rocketseat-icon.svg'
 
 import { OrganizationSwitcher } from './organization-switcher'
+import { PendingInvites } from './pending-invites'
 import { ProjectSwitcher } from './project-switcher'
 import { ProfileButton } from './profile-button'
 import { ability } from '@/auth/auth'
@@ -36,6 +37,7 @@ export async function Header() {
       </div>
 
       <div className="flex items-center gap-4">
+        <PendingInvites />
         <ThemeSwitcher />
         <Separator orientation="vertical" className="h-5" />
         <ProfileButton />
