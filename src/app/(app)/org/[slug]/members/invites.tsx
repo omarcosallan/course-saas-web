@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { getInvites } from '@/http/get-invites'
 
+import { CreateInviteForm } from './create-invite-form'
 import { RevokeInviteButton } from './revoke-invite-button'
 
 export async function Invites() {
@@ -11,9 +12,6 @@ export async function Invites() {
   const permissions = await ability()
 
   const { invites } = await getInvites(currentOrg)
-
-  console.log(invites)
-
   return (
     <div className="space-y-4">
       {permissions?.can('create', 'Invite') && (
@@ -21,7 +19,9 @@ export async function Invites() {
           <CardHeader>
             <CardTitle>Invite member</CardTitle>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>
+            <CreateInviteForm />
+          </CardContent>
         </Card>
       )}
 
